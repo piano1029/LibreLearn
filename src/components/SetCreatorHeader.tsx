@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
         position: 'fixed',
         top: 0,
         right: 0,
-        width: 'calc(100vw - 95px)',
+        width: 'calc(100vw - 80px)',
         //width: '100vw',
         //paddingLeft: '100px',
         paddingLeft: 10,

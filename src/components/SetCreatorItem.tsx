@@ -71,25 +71,29 @@ export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem,
     return (
         <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} >
             <Grid>
-                <Grid.Col span={1} >{grip}</Grid.Col>
                 <Grid.Col span={3}>
-                    <Select
-                        itemComponent={SelectItem}
-                        data={data.map((item) => { return { ...item, Icon: item.icon } })}
-                        searchable
-                        maxDropdownHeight={400}
-                        value={item.type}
-                        onChange={(type: ItemType) => {
-                            setItem({ ...item, type })
-                        }}
-                        required
-                        filter={(value, item) =>
-                            item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
-                            item.description.toLowerCase().includes(value.toLowerCase().trim())
-                        }
-                    />
+                    <Group position="center" noWrap>
+                        {grip}
+                        <Select
+                            itemComponent={SelectItem}
+                            //@ts-ignore
+                            data={data.map((item) => { return { ...item, Icon: item.icon } })}
+                            searchable
+                            maxDropdownHeight={400}
+                            value={item.type}
+                            onChange={(type: ItemType) => {
+                                setItem({ ...item, type })
+                            }}
+                            required
+                            filter={(value, item) =>
+                                //@ts-ignore
+                                item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
+                                item.description.toLowerCase().includes(value.toLowerCase().trim())
+                            }
+                        />
+                    </Group>
                 </Grid.Col>
-                <Grid.Col span={8}>
+                <Grid.Col span={9}>
                     <Stack justify={"center"} style={{ height: '100%' }} >
                         <Group position="right">
                             <CloseButton title="Delete item" size="lg" iconSize={20} onClick={() => { setItem(undefined) }} />

@@ -12,8 +12,10 @@ export default function SetCreator() {
         items: [{
             left: "Test left",
             right: "Test right",
-            type: 'ExactText'
-        }]
+            type: 'ExactText',
+            uuid: '43909daa-eb84-4016-a8de-659baea1d636'
+        }],
+        uuid: 'c43692d1-820b-4fcf-b2bc-6dc4f299d4ca'
     })
 
     return <>

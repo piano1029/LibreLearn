@@ -3,16 +3,18 @@ import { languageID } from "./languages";
 export type ItemType = "ExactText" | "Text" | "LaTeX" | "Image"
 
 export type SetItem = {
+    uuid: string,
+
     left: string
-
     right: string
-
     type: ItemType,
 
-    isEmpty?: boolean
+    isEmpty?: boolean,
 }
 
 export type SerializedSet = {
+    uuid: string,
+
     name: string
     creator?: string
     is_made_by_this_user?: boolean

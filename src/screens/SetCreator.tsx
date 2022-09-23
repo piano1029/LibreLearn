@@ -2,18 +2,23 @@ import { useState } from "react"
 import { SetCreatorHeader } from "../components/SetCreatorHeader"
 import { SerializedSet, SetItem } from "../api/sets"
 import SetCreatorItem from "../components/SetCreatorItem"
-import { createStyles, Group, Text } from '@mantine/core';
+import { createStyles, Group, ScrollArea, Text } from '@mantine/core';
 import { useListState } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IconGripVertical } from '@tabler/icons';
 import { SetCreatorAddItem } from "../components/SetCreatorAddItem";
 import { v4 as uuidv4 } from 'uuid'
+//import db from "../api/db";
+import { useEffect } from "react";
 
 const useStyles = createStyles((theme) => ({
     item: {
         display: 'flex',
         alignItems: 'center',
-        borderRadius: theme.radius.md,
+        borderRadius: theme.radius.md
+    },
+
+    itemMargin: {
         marginBottom: theme.spacing.md,
     },
 
@@ -70,68 +75,90 @@ export default function SetCreator() {
         uuid: 'c43692d1-820b-4fcf-b2bc-6dc4f299d4ca'
     })
 
+    /*useEffect(() => {
+        console.log(`loading draft`)
+        if (db.data !== null) {
+            console.log(`setting setdata to draft`, db.data.draft)
+            setSetData(db.data.draft)
+        }
+        setInterval(() => {
+            if (db.data !== null) db.data.draft = setData
+        }, 500)
+    }, [])*/
+
+    /*function setSetData(value: SerializedSet) {
+        _setSetData(value)
+        if (db.data !== null) db.data.draft = value
+
+    }*/
+
     return <>
         <SetCreatorHeader value={setData.name} setValue={(name) => setSetData({
             ...setData,
             name
         })} />
 
-        <div style={{ marginTop: 56, marginBottom: 80 }} >
-            <DragDropContext
-                onDragEnd={({ destination, source }) => {
-                    let items = [...setData.items]
-                    array_move(items, source.index, destination?.index || 0)
-                    items = items.filter((v) => v !== undefined)
-                    setSetData({ ...setData, items: items as SetItem[] })
-                }
-                    //handlers.reorder({ from: source.index, to: destination?.index || 0 })
-                }
-            >
-                <Droppable droppableId="dnd-list" direction="vertical">
-                    {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {setData.items.map((item, index) => {
-                                return (
-                                    <Draggable key={item.uuid} index={index} draggableId={item.uuid} >
-                                        {(provided, snapshot) => (
-                                            <div
-                                                className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging })}
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                            //style={{ marginBottom: 20 }}
-                                            >
+        <div style={{ marginBottom: 80 - 40 }} >
+            <ScrollArea style={{ height: `calc(100vh - ${80 + 56 + 10}px)` }} >
+                <div style={{ marginTop: 56, height: '100%' }} >
+                    <DragDropContext
+                        onDragEnd={({ destination, source }) => {
+                            let items = [...setData.items]
+                            array_move(items, source.index, destination?.index || 0)
+                            items = items.filter((v) => v !== undefined)
+                            setSetData({ ...setData, items: items as SetItem[] })
+                        }
+                            //handlers.reorder({ from: source.index, to: destination?.index || 0 })
+                        }
+                    >
+                        <Droppable
+                            droppableId="dnd-list" direction="vertical">
+                            {(provided) => (
+                                <div {...provided.droppableProps} ref={provided.innerRef}>
+                                    {setData.items.map((item, index) => {
+                                        return (
+                                            <Draggable key={item.uuid} index={index} draggableId={item.uuid} >
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging/*, [classes.itemMargin]: index !== setData.items.length - 1*/ })}
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                    //style={{ marginBottom: 20 }}
+                                                    >
 
-                                                <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {
-                                                    let items = [...setData.items] as (SetItem | undefined)[]
-                                                    if (item !== undefined) {
-                                                        if (item.left !== '' || item.right !== '') {
-                                                            item.isEmpty = false
-                                                        }
-                                                        if (item.left === '' || item.right === '') {
-                                                            item.isEmpty = true
-                                                        }
-                                                    }
+                                                        <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {
+                                                            let items = [...setData.items] as (SetItem | undefined)[]
+                                                            /*if (item !== undefined) {
+                                                                if (item.left !== '' || item.right !== '') {
+                                                                    item.isEmpty = false
+                                                                }
+                                                                if (item.left === '' || item.right === '') {
+                                                                    item.isEmpty = true
+                                                                }
+                                                            }*/
 
-                                                    items[index] = item
-                                                    items = items.filter((v) => v !== undefined)
-                                                    setSetData({ ...setData, items: items as SetItem[] })
-                                                }} grip={<div {...provided.dragHandleProps} className={classes.dragHandle}>
-                                                    <IconGripVertical size={18} stroke={1.5} />
-                                                </div>} />
-                                            </div>
-                                        )}
+                                                            items[index] = item
+                                                            //items = items.filter((v) => v !== undefined)
+                                                            setSetData({ ...setData, items: items as SetItem[] })
+                                                        }} grip={<div {...provided.dragHandleProps} className={classes.dragHandle}>
+                                                            <IconGripVertical size={18} stroke={1.5} />
+                                                        </div>} />
+                                                    </div>
+                                                )}
 
 
-                                    </Draggable>
-                                )
-                            })}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                                            </Draggable>
+                                        )
+                                    })}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+            </ScrollArea>
 
-            <Group position="center">
+            <Group position="center" style={{ marginTop: 18 }} >
                 <SetCreatorAddItem addEmpty={(item) => {
                     setSetData({
                         ...setData, items: [...setData.items, {

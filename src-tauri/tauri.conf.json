@@ -58,7 +58,9 @@
                 "height": 600,
                 "resizable": true,
                 "title": "LibreLearn",
-                "width": 1000
+                "width": 1000,
+                "minWidth": 800,
+                "minHeight": 400
             }
         ]
     }

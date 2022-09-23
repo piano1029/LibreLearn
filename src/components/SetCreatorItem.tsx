@@ -40,7 +40,7 @@ interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
 
 const SelectItem = forwardRef<HTMLDivElement, ItemProps & { Icon: TablerIcon }>(
     ({ Icon, label, description, ...others }: ItemProps & { Icon: TablerIcon }, ref) => (
-        <div ref={ref} {...others}>
+        <div ref={ref} {...{ ...others, icon: undefined }}>
             <Grid align={'center'}>
                 <Grid.Col span={3} ><Icon size={30} /></Grid.Col>
 
@@ -56,7 +56,7 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps & { Icon: TablerIcon }>(
     )
 );
 
-export default function SetCreatorItem({ item, setItem }: { item: SetItem, setItem: (item: SetItem | undefined) => void }) {
+export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
 
     function TextEditor({ direction }: { direction: 'left' | 'right' }) {
         return <RichTextEditor
@@ -69,8 +69,9 @@ export default function SetCreatorItem({ item, setItem }: { item: SetItem, setIt
     }
 
     return (
-        <Paper shadow="sm" p="md" withBorder >
+        <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} >
             <Grid>
+                <Grid.Col span={1} >{grip}</Grid.Col>
                 <Grid.Col span={3}>
                     <Select
                         itemComponent={SelectItem}
@@ -88,7 +89,7 @@ export default function SetCreatorItem({ item, setItem }: { item: SetItem, setIt
                         }
                     />
                 </Grid.Col>
-                <Grid.Col span={9}>
+                <Grid.Col span={8}>
                     <Stack justify={"center"} style={{ height: '100%' }} >
                         <Group position="right">
                             <CloseButton title="Delete item" size="lg" iconSize={20} onClick={() => { setItem(undefined) }} />

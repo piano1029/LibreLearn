@@ -47,13 +47,13 @@ function Main({ theme }: { theme: Theme }) {
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
     return (
-        <React.StrictMode>
-            <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-                <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-                    <RouterProvider router={router} />
-                </MantineProvider>
-            </ColorSchemeProvider>
-        </React.StrictMode>
+        //<React.StrictMode>
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+                <RouterProvider router={router} />
+            </MantineProvider>
+        </ColorSchemeProvider>
+        //</React.StrictMode>
     )
 }
 

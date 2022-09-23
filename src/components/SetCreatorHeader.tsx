@@ -12,10 +12,14 @@ const useStyles = createStyles((theme) => ({
         position: 'fixed',
         top: 0,
         right: 0,
-        //width: 'calc(100vw - 100px)',
-        width: '100vw',
-        paddingLeft: '100px',
-        borderBottom: `5px solid #1c7ed6`
+        width: 'calc(100vw - 95px)',
+        //width: '100vw',
+        //paddingLeft: '100px',
+        paddingLeft: 10,
+        marginLeft: '100px',
+        borderBottom: `5px solid #1c7ed6`,
+        zIndex: 200000,
+        backgroundColor: theme.colorScheme === `dark` ? `rgb(26, 27, 30)` : `#ffffff`,
     },
 
     links: {

@@ -11,9 +11,10 @@
     },
     "dependencies": {
         "@emotion/react": "^11.10.4",
-        "@mantine/core": "^5.3.3",
-        "@mantine/ds": "^5.3.3",
+        "@mantine/core": "^5.4.0",
+        "@mantine/ds": "^5.4.0",
         "@mantine/hooks": "^5.3.3",
+        "@mantine/rte": "^5.4.0",
         "@tabler/icons": "^1.96.0",
         "@tauri-apps/api": "^1.1.0",
         "axios": "^0.27.2",

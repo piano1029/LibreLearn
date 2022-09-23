@@ -112,7 +112,7 @@ export default function SetCreator() {
                         }
                     >
                         <Droppable
-                            droppableId="dnd-list" direction="vertical">
+                            droppableId="dnd-list" direction="vertical" type="never" >
                             {(provided) => (
                                 <div {...provided.droppableProps} ref={provided.innerRef}>
                                     {setData.items.map((item, index) => {
@@ -120,7 +120,7 @@ export default function SetCreator() {
                                             <Draggable key={item.uuid} index={index} draggableId={item.uuid} >
                                                 {(provided, snapshot) => (
                                                     <div
-                                                        className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging/*, [classes.itemMargin]: index !== setData.items.length - 1*/ })}
+                                                        className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging, [classes.itemMargin]: index !== setData.items.length - 1 })}
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                     //style={{ marginBottom: 20 }}
@@ -128,17 +128,17 @@ export default function SetCreator() {
 
                                                         <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {
                                                             let items = [...setData.items] as (SetItem | undefined)[]
-                                                            /*if (item !== undefined) {
+                                                            if (item !== undefined) {
                                                                 if (item.left !== '' || item.right !== '') {
                                                                     item.isEmpty = false
                                                                 }
                                                                 if (item.left === '' || item.right === '') {
                                                                     item.isEmpty = true
                                                                 }
-                                                            }*/
+                                                            }
 
                                                             items[index] = item
-                                                            //items = items.filter((v) => v !== undefined)
+                                                            items = items.filter((v) => v !== undefined)
                                                             setSetData({ ...setData, items: items as SetItem[] })
                                                         }} grip={<div {...provided.dragHandleProps} className={classes.dragHandle}>
                                                             <IconGripVertical size={18} stroke={1.5} />

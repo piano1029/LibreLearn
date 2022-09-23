@@ -1,8 +1,9 @@
 import { Grid, Paper, Select, Text, Group, Avatar, CloseButton, Stack } from "@mantine/core";
 import { TablerIcon, IconTestPipe, IconAsteriskSimple, IconLetterCase, IconFunction, IconPhoto } from "@tabler/icons";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { ItemType, SetItem } from "../api/sets";
 import { RichTextEditor } from '@mantine/rte';
+import React from "react";
 
 const data: ItemProps[] & { value: string }[] = [
     {
@@ -58,15 +59,28 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps & { Icon: TablerIcon }>(
 
 export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
 
-    function TextEditor({ direction }: { direction: 'left' | 'right' }) {
+    const TextEditor = React.memo(function TextEditor({ direction }: { direction: 'left' | 'right' }) {
+
+        let [temp, setTemp] = useState(item[direction])
+
+        function update(newValue: string) {
+            setItem({
+                ...item,
+                [direction]: newValue
+            })
+        }
+
         return <RichTextEditor
-            value={item[direction]} onChange={(newValue) => { setItem({ ...item, [direction]: newValue }) }}
+            //value={item[direction]} onChange={(newValue) => { setItem({ ...item, [direction]: newValue }) }}
+            value={temp} onChange={setTemp}
             controls={[
                 ['bold', 'italic', 'underline'],
                 ['sup', 'sub'],
             ]}
+            //onSubmit={() => { update(temp); console.log(`update`) }}
+            onBlur={() => { update(temp); console.log(`update`) }}
         />
-    }
+    })
 
     return (
         <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} >

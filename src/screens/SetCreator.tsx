@@ -2,10 +2,12 @@ import { useState } from "react"
 import { SetCreatorHeader } from "../components/SetCreatorHeader"
 import { SerializedSet, SetItem } from "../api/sets"
 import SetCreatorItem from "../components/SetCreatorItem"
-import { createStyles, Text } from '@mantine/core';
+import { createStyles, Group, Text } from '@mantine/core';
 import { useListState } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IconGripVertical } from '@tabler/icons';
+import { SetCreatorAddItem } from "../components/SetCreatorAddItem";
+import { v4 as uuidv4 } from 'uuid'
 
 const useStyles = createStyles((theme) => ({
     item: {
@@ -26,8 +28,8 @@ const useStyles = createStyles((theme) => ({
         justifyContent: 'center',
         height: '100%',
         color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
-        paddingLeft: theme.spacing.md,
-        paddingRight: theme.spacing.md,
+        //paddingLeft: theme.spacing.md,
+        //paddingRight: theme.spacing.md
     },
 }));
 
@@ -129,8 +131,21 @@ export default function SetCreator() {
                 </Droppable>
             </DragDropContext>
 
-
-
+            <Group position="center">
+                <SetCreatorAddItem addEmpty={(item) => {
+                    setSetData({
+                        ...setData, items: [...setData.items, {
+                            left: '',
+                            right: '',
+                            type: setData.items[setData.items.length - 1]?.type || 'Text',
+                            isEmpty: true,
+                            uuid: uuidv4()
+                        }]
+                    })
+                }} />
+            </Group>
         </div>
+
+
     </>
 }

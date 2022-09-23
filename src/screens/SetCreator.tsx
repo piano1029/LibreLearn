@@ -28,7 +28,7 @@ export default function SetCreator() {
 
             {setData.items.map((item, index) => {
                 return (
-                    <SetCreatorItem item={item} setItem={(item) => {
+                    <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {
                         let items = [...setData.items] as (SetItem | undefined)[]
                         if (item !== undefined) {
                             if (item.left !== '' || item.right !== '') {

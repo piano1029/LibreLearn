@@ -1,10 +1,11 @@
 import { Low } from "lowdb"
 import { Store } from 'tauri-plugin-store-api';
 const store = new Store('.db.dat');
-import { Set } from './sets'
+import { SerializedSet, Set } from './sets'
 
 export type DBData = {
-    sets: Set[]
+    sets: Set[],
+    draft: SerializedSet
 }
 
 class TauriStorageAdapter {
@@ -19,7 +20,7 @@ class TauriStorageAdapter {
 const db = new Low<DBData>(new TauriStorageAdapter)
 
 setInterval(async () => {
-    console.log(`Saving database!`)
+    console.log(`Saving database!`, db.data)
     await db.write()
 }, 1000)
 

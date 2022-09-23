@@ -18,4 +18,9 @@ class TauriStorageAdapter {
 
 const db = new Low<DBData>(new TauriStorageAdapter)
 
+setInterval(async () => {
+    console.log(`Saving database!`)
+    await db.write()
+}, 1000)
+
 export default db

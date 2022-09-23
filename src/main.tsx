@@ -12,6 +12,7 @@ import { Sidebar } from "./components/Sidebar";
 import "./style.css";
 import { ErrorScreen } from "./components/ErrorScreen";
 import { Footer } from "./components/Footer";
+import db from "./api/db";
 
 import { Store } from 'tauri-plugin-store-api';
 import SetCreator from "./screens/SetCreator";
@@ -59,13 +60,15 @@ function Main({ theme }: { theme: Theme }) {
 
 appWindow.theme().then((theme) => {
     store.get(`theme`).then((_customTheme) => {
-        const customTheme = _customTheme as Theme | null
-        if (customTheme !== null) {
-            theme = customTheme
-        }
-        ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-            <Main theme={theme || `dark`} />
-        );
+        db.read().then(() => {
+            const customTheme = _customTheme as Theme | null
+            if (customTheme !== null) {
+                theme = customTheme
+            }
+            ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+                <Main theme={theme || `dark`} />
+            );
+        })
     })
 
 })

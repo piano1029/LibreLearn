@@ -61,6 +61,19 @@ function Main({ theme }: { theme: Theme }) {
 appWindow.theme().then((theme) => {
     store.get(`theme`).then((_customTheme) => {
         db.read().then(() => {
+            if (db.data === null) {
+                // Initialize database!
+                db.data = {
+                    sets: [],
+                    draft: {
+                        name: `Demo`,
+                        uuid: `2475a7e4-2e5f-45a8-86ea-613df04a2cb5`,
+                        times_studied: 0,
+                        is_2_languages: false,
+                        items: []
+                    }
+                }
+            }
             const customTheme = _customTheme as Theme | null
             if (customTheme !== null) {
                 theme = customTheme

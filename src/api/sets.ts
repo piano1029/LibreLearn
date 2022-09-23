@@ -1,15 +1,15 @@
 import { languageID } from "./languages";
 
-type ItemType = "ExactText" | "Text" | "LaTeX" | "Image"
+export type ItemType = "ExactText" | "Text" | "LaTeX" | "Image"
 
 export type SetItem = {
-    // the thing that would be shown to the user
-    description: string
+    left: string
 
-    // the thing that the user would have to like answer or something
-    answer: string
+    right: string
 
-    type: ItemType
+    type: ItemType,
+
+    isEmpty?: boolean
 }
 
 export type SerializedSet = {
@@ -23,6 +23,8 @@ export type SerializedSet = {
     is_2_languages: boolean
     language1?: languageID
     language2?: languageID
+
+    items: SetItem[]
 }
 
 export class Set {
@@ -36,6 +38,8 @@ export class Set {
     is_2_languages: boolean = false
     language1?: languageID
     language2?: languageID
+
+    items: SetItem[] = []
 
     // Constructor should only be used when creating a new set
     constructor(name: string) {

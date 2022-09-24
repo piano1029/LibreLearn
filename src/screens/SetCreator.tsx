@@ -93,14 +93,14 @@ export default function SetCreator() {
     }*/
 
     return <>
-        <SetCreatorHeader value={setData.name} setValue={(name) => setSetData({
+        <SetCreatorHeader key="setcreatorheader" value={setData.name} setValue={(name) => setSetData({
             ...setData,
             name
         })} />
 
-        <div style={{ marginBottom: 80 - 40 }} >
-            <ScrollArea style={{ height: `calc(100vh - ${80 + 56 + 10}px)` }} >
-                <div style={{ marginTop: 56, height: '100%' }} >
+        <div style={{ marginBottom: 80 - 40 }} key="setcreatortopdiv" >
+            <ScrollArea style={{ height: `calc(100vh - ${80 + 56 + 10}px)` }} key="setcreatorscrollarea" >
+                <div style={{ marginTop: 56, height: '100%' }} key="setcreatordiv2" >
                     <DragDropContext
                         onDragEnd={({ destination, source }) => {
                             let items = [...setData.items]
@@ -110,20 +110,22 @@ export default function SetCreator() {
                         }
                             //handlers.reorder({ from: source.index, to: destination?.index || 0 })
                         }
+                        key="setcreatordeagdropcontext"
                     >
                         <Droppable
-                            droppableId="dnd-list" direction="vertical" type="never" >
+                            droppableId="dnd-list" direction="vertical" type="never" key="setcreatordroppable" >
                             {(provided) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef}>
+                                <div {...provided.droppableProps} ref={provided.innerRef} key="setcreatordiv3">
                                     {setData.items.map((item, index) => {
                                         return (
-                                            <Draggable key={item.uuid} index={index} draggableId={item.uuid} >
+                                            <Draggable key={item.uuid + `draggable`} index={index} draggableId={item.uuid} >
                                                 {(provided, snapshot) => (
                                                     <div
                                                         className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging, [classes.itemMargin]: index !== setData.items.length - 1 })}
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
-                                                    //style={{ marginBottom: 20 }}
+                                                        //style={{ marginBottom: 20 }}
+                                                        key={item.uuid}
                                                     >
 
                                                         <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {

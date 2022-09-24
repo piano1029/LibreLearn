@@ -57,33 +57,33 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps & { Icon: TablerIcon }>(
     )
 );
 
+const TextEditor = React.memo(function TextEditor({ direction, item, setItem }: { direction: 'left' | 'right', item: SetItem, setItem: (item: SetItem | undefined) => void }) {
+
+    let [temp, setTemp] = useState(item[direction])
+
+    function update(newValue: string) {
+        setItem({
+            ...item,
+            [direction]: newValue
+        })
+    }
+
+    return <RichTextEditor
+        value={item[direction]} onChange={(newValue) => { setItem({ ...item, [direction]: newValue }) }}
+        //value={temp} onChange={setTemp}
+        controls={[
+            ['bold', 'italic', 'underline'],
+            ['sup', 'sub'],
+        ]}
+    //onSubmit={() => { update(temp); console.log(`update`) }}
+    //onBlur={() => { update(temp); console.log(`update`) }}
+    />
+})
+
 export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
 
-    const TextEditor = React.memo(function TextEditor({ direction }: { direction: 'left' | 'right' }) {
-
-        let [temp, setTemp] = useState(item[direction])
-
-        function update(newValue: string) {
-            setItem({
-                ...item,
-                [direction]: newValue
-            })
-        }
-
-        return <RichTextEditor
-            //value={item[direction]} onChange={(newValue) => { setItem({ ...item, [direction]: newValue }) }}
-            value={temp} onChange={setTemp}
-            controls={[
-                ['bold', 'italic', 'underline'],
-                ['sup', 'sub'],
-            ]}
-            //onSubmit={() => { update(temp); console.log(`update`) }}
-            onBlur={() => { update(temp); console.log(`update`) }}
-        />
-    })
-
     return (
-        <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} >
+        <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} key={item.uuid} >
             <Grid>
                 <Grid.Col span={3}>
                     <Group position="center" noWrap>
@@ -115,8 +115,8 @@ export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem,
                     </Stack>
                 </Grid.Col>
 
-                <Grid.Col span={6}><TextEditor direction="left" /></Grid.Col>
-                <Grid.Col span={6}><TextEditor direction="right" /></Grid.Col>
+                <Grid.Col span={6} key={`${item.uuid}TEXTEDITLEFTGRID`} ><TextEditor item={item} setItem={setItem} key={`${item.uuid}TEXTEDITLEFT`} direction="left" /></Grid.Col>
+                <Grid.Col span={6} key={`${item.uuid}TEXTEDITRIGHGRID`} ><TextEditor item={item} setItem={setItem} key={`${item.uuid}TEXTEDITRIGH`} direction="right" /></Grid.Col>
             </Grid>
         </Paper>
     )

@@ -10,6 +10,7 @@ import { SetCreatorAddItem } from "../components/SetCreatorAddItem";
 import { v4 as uuidv4 } from 'uuid'
 //import db from "../api/db";
 import { useEffect } from "react";
+import db from "../api/db";
 
 const useStyles = createStyles((theme) => ({
     item: {
@@ -75,16 +76,18 @@ export default function SetCreator() {
         uuid: 'c43692d1-820b-4fcf-b2bc-6dc4f299d4ca'
     })
 
-    /*useEffect(() => {
+    useEffect(() => {
         console.log(`loading draft`)
         if (db.data !== null) {
             console.log(`setting setdata to draft`, db.data.draft)
             setSetData(db.data.draft)
         }
-        setInterval(() => {
-            if (db.data !== null) db.data.draft = setData
-        }, 500)
-    }, [])*/
+    }, [])
+
+    useEffect(() => {
+        console.log(`saving`)
+        if (db.data !== null) db.data.draft = setData
+    })
 
     /*function setSetData(value: SerializedSet) {
         _setSetData(value)
@@ -162,7 +165,7 @@ export default function SetCreator() {
 
             <Group position="center" style={{ marginTop: 18 }} >
                 <SetCreatorAddItem addEmpty={(item) => {
-                    setSetData({
+                    /*setSetData({
                         ...setData, items: [...setData.items, {
                             left: '',
                             right: '',
@@ -170,7 +173,7 @@ export default function SetCreator() {
                             isEmpty: true,
                             uuid: uuidv4()
                         }]
-                    })
+                    })*/
                 }} />
             </Group>
         </div>

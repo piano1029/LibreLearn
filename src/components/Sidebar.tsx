@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, useMantineColorScheme, ScrollArea } from '@mantine/core';
 import {
     TablerIcon,
@@ -61,7 +60,6 @@ const sidebarElements = [
 ];
 
 export function Sidebar() {
-    const [active, setActive] = useState(2);
     const { classes, cx } = useStyles()
     const { colorScheme, toggleColorScheme } = useMantineColorScheme()
     const dark = colorScheme === 'dark';

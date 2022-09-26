@@ -59,17 +59,10 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps & { Icon: TablerIcon }>(
 
 const TextEditor = React.memo(function TextEditor({ direction, item, setItem }: { direction: 'left' | 'right', item: SetItem, setItem: (item: SetItem | undefined) => void }) {
 
-    let [temp, setTemp] = useState(item[direction])
-
-    function update(newValue: string) {
-        setItem({
-            ...item,
-            [direction]: newValue
-        })
-    }
+    //let [temp, setTemp] = useState(item[direction])
 
     return <RichTextEditor
-        value={item[direction]} onChange={(newValue) => { setItem({ ...item, [direction]: newValue }) }}
+        value={item[direction]} onChange={(newValue) => { console.log(newValue, item[direction]); if (`<p>` + item[direction] + `</p>` !== newValue) setItem({ ...item, [direction]: newValue }) }}
         //value={temp} onChange={setTemp}
         controls={[
             ['bold', 'italic', 'underline'],
@@ -80,7 +73,7 @@ const TextEditor = React.memo(function TextEditor({ direction, item, setItem }: 
     />
 })
 
-export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
+export default React.memo(function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
 
     return (
         <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} key={item.uuid} >
@@ -115,9 +108,9 @@ export default function SetCreatorItem({ item, setItem, grip }: { item: SetItem,
                     </Stack>
                 </Grid.Col>
 
-                <Grid.Col span={6} key={`${item.uuid}TEXTEDITLEFTGRID`} ><TextEditor item={item} setItem={setItem} key={`${item.uuid}TEXTEDITLEFT`} direction="left" /></Grid.Col>
-                <Grid.Col span={6} key={`${item.uuid}TEXTEDITRIGHGRID`} ><TextEditor item={item} setItem={setItem} key={`${item.uuid}TEXTEDITRIGH`} direction="right" /></Grid.Col>
+                <Grid.Col span={6} key={`${item.uuid}TEXTEDITLEFTGRID`} ><TextEditor item={item} setItem={(item: SetItem | undefined) => setItem(item)} key={`${item.uuid}TEXTEDITLEFT`} direction="left" /></Grid.Col>
+                <Grid.Col span={6} key={`${item.uuid}TEXTEDITRIGHGRID`} ><TextEditor item={item} setItem={(item: SetItem | undefined) => setItem(item)} key={`${item.uuid}TEXTEDITRIGH`} direction="right" /></Grid.Col>
             </Grid>
         </Paper>
     )
-}
+})

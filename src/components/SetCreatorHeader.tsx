@@ -1,4 +1,4 @@
-import { createStyles, Header, Menu, Group, Center, Burger, Container, TextInput } from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, TextInput, Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
 import { MantineLogo } from '@mantine/ds';
@@ -52,10 +52,14 @@ const useStyles = createStyles((theme) => ({
     linkLabel: {
         marginRight: 5,
     },
+
+    saveButton: {
+        marginRight: theme.spacing.md
+    }
 }));
 
 
-export function SetCreatorHeader({ value, setValue }: { value: string, setValue: (v: string) => any }) {
+export function SetCreatorHeader({ value, setValue, save }: { value: string, setValue: (v: string) => any, save: () => void }) {
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
 
@@ -70,6 +74,9 @@ export function SetCreatorHeader({ value, setValue }: { value: string, setValue:
                     size="md"
                     onChange={(event) => setValue(event.target.value)}
                 />
+                <Group position='right' className={classes.saveButton} ><Button size='xs' onClick={save} >
+                    Save
+                </Button></Group>
             </div>
         </Container>
         //{/*</Header>*/ }

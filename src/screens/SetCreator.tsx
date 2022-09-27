@@ -98,7 +98,15 @@ export default function SetCreator() {
         <SetCreatorHeader key="setcreatorheader" value={setData.name} setValue={(name) => setSetData({
             ...setData,
             name
-        })} />
+        })} save={() => {
+            if (db.data === null) {
+                // TODO: Send a notification to alert of the save failure
+                console.log(`db is null`)
+                return
+            }
+            console.log(`saving set`)
+            db.data.sets[setData.uuid] = setData
+        }} />
 
         <div style={{ marginBottom: 80 - 40 }} key="setcreatortopdiv" >
             <ScrollArea style={{ height: `calc(100vh - ${80 + 56 + 10}px)` }} key="setcreatorscrollarea" >

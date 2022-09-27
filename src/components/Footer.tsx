@@ -1,6 +1,6 @@
-import { createStyles, Anchor, Group, ActionIcon } from '@mantine/core';
+import { createStyles, Anchor, Group, ActionIcon, Button } from '@mantine/core';
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram, IconBrandGithub } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
+import db from '../api/db';
 
 const useStyles = createStyles((theme) => ({
     footer: {
@@ -29,6 +29,10 @@ export function Footer() {
         <div className={classes.footer}>
             <div className={classes.inner}>
                 <span style={{ fontWeight: '600' }} >LibreLearn</span>
+
+                <Button color="red" size="xs" compact uppercase onClick={() => { if (db.data !== null) db.data.sets = {} }}>
+                    Clear DB
+                </Button>
 
                 <Group spacing="xs" position="right" noWrap>
                     <a style={{ color: 'inherit', textDecoration: 'none', margin: 0, padding: 0 }} href="https://github.com" target="_blank"  >

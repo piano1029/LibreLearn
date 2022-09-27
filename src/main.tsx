@@ -16,6 +16,7 @@ import db from "./api/db";
 
 import { Store } from 'tauri-plugin-store-api';
 import SetCreator from "./screens/SetCreator";
+import AllSets from "./screens/AllSets";
 const store = new Store('.settings.dat');
 
 function Wrapper({ children }: { children: any }) {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
     {
         path: "/creator",
         element: <Wrapper><SetCreator /></Wrapper>
+    },
+    {
+        path: "/all",
+        element: <Wrapper><AllSets /></Wrapper>
     }
 ]);
 

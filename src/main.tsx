@@ -64,7 +64,7 @@ appWindow.theme().then((theme) => {
             if (db.data === null) {
                 // Initialize database!
                 db.data = {
-                    sets: [],
+                    sets: {},
                     draft: {
                         name: `Demo`,
                         uuid: `2475a7e4-2e5f-45a8-86ea-613df04a2cb5`,

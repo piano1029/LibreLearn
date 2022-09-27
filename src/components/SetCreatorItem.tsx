@@ -73,7 +73,7 @@ const TextEditor = React.memo(function TextEditor({ direction, item, setItem }: 
     />
 })
 
-export default React.memo(function SetCreatorItem({ item, setItem, grip }: { item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
+export default React.memo(function SetCreatorItem({ index, item, setItem, grip }: { index: number, item: SetItem, setItem: (item: SetItem | undefined) => void, grip: any }) {
 
     return (
         <Paper shadow="sm" p="md" withBorder style={{ width: '100%' }} key={item.uuid} >
@@ -103,6 +103,7 @@ export default React.memo(function SetCreatorItem({ item, setItem, grip }: { ite
                 <Grid.Col span={9}>
                     <Stack justify={"center"} style={{ height: '100%' }} >
                         <Group position="right">
+                            {index + 1}
                             <CloseButton title="Delete item" size="lg" iconSize={20} onClick={() => { setItem(undefined) }} />
                         </Group>
                     </Stack>

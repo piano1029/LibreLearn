@@ -130,7 +130,7 @@ export default function SetCreator() {
                                                         key={item.uuid}
                                                     >
 
-                                                        <SetCreatorItem key={item.uuid} item={item} setItem={(item) => {
+                                                        <SetCreatorItem index={index} key={item.uuid} item={item} setItem={(item) => {
                                                             let items = [...setData.items] as (SetItem | undefined)[]
                                                             if (item !== undefined) {
                                                                 if (item.left !== '' || item.right !== '') {

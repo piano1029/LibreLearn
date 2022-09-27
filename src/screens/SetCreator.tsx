@@ -8,7 +8,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IconGripVertical } from '@tabler/icons';
 import { SetCreatorAddItem } from "../components/SetCreatorAddItem";
 import { v4 as uuidv4 } from 'uuid'
-//import db from "../api/db";
 import { useEffect } from "react";
 import db from "../api/db";
 
@@ -165,7 +164,7 @@ export default function SetCreator() {
 
             <Group position="center" style={{ marginTop: 18 }} >
                 <SetCreatorAddItem addEmpty={(item) => {
-                    /*setSetData({
+                    setSetData({
                         ...setData, items: [...setData.items, {
                             left: '',
                             right: '',
@@ -173,7 +172,7 @@ export default function SetCreator() {
                             isEmpty: true,
                             uuid: uuidv4()
                         }]
-                    })*/
+                    })
                 }} />
             </Group>
         </div>

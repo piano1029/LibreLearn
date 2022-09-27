@@ -4,7 +4,9 @@ const store = new Store('.db.dat');
 import { SerializedSet, Set } from './sets'
 
 export type DBData = {
-    sets: Set[],
+    sets: {
+        [key: string]: Set
+    },
     draft: SerializedSet
 }
 

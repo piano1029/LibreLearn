@@ -60,6 +60,11 @@ const useStyles = createStyles((theme, _params, getRef) => {
         author: {
             color: theme.colors.dark[2],
         },
+
+        unsplashLink: {
+            color: theme.colors.dark[2],
+            textDecoration: 'none'
+        }
     };
 });
 
@@ -72,15 +77,13 @@ export function SetCard({ set }: { set: SerializedSet }) {
             shadow="lg"
             className={classes.card}
             radius="md"
-            component="a"
-            target="_blank"
         >
 
             <div className={classes.image} style={{ backgroundImage: `url("https://images.unsplash.com/photo-1651527567557-769ea053b0ab")` }} />
             <div className={classes.overlay} />
 
             <div className={classes.content}>
-                <Text color="dimmed" ><a href="https://unsplash.com/@fakurian" target={"_blank"} style={{ color: 'inherit', textDecoration: 'none' }} >Image from fakurian on Unsplash</a></Text>
+                <a href="https://unsplash.com/@fakurian" className={classes.unsplashLink} target={"_blank"} >Image from fakurian on Unsplash</a>
                 <div>
                     <Text size="lg" className={classes.title} weight={500}>
                         {set.name}

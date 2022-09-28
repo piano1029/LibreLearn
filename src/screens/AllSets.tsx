@@ -26,7 +26,7 @@ export default function AllSets() {
         <ScrollArea className={classes.scrollContainer} >
             <Grid grow className={classes.grid} >
                 {Object.keys((db.data === null ? { sets: {} } : db.data).sets).map((uuid) => {
-                    return <Grid.Col span={4}><SetCard set={db.data?.sets[uuid] as SerializedSet} /></Grid.Col>
+                    return <Grid.Col span={4} key={uuid} ><SetCard set={db.data?.sets[uuid] as SerializedSet} /></Grid.Col>
                 })}
             </Grid>
         </ScrollArea>

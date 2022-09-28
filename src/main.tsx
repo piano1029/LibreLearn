@@ -17,6 +17,7 @@ import db from "./api/db";
 import { Store } from 'tauri-plugin-store-api';
 import SetCreator from "./screens/SetCreator";
 import AllSets from "./screens/AllSets";
+import { ModalsProvider } from "@mantine/modals";
 const store = new Store('.settings.dat');
 
 function Wrapper({ children }: { children: any }) {
@@ -56,7 +57,9 @@ function Main({ theme }: { theme: Theme }) {
         //<React.StrictMode>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-                <RouterProvider router={router} />
+                <ModalsProvider>
+                    <RouterProvider router={router} />
+                </ModalsProvider>
             </MantineProvider>
         </ColorSchemeProvider>
         //</React.StrictMode>

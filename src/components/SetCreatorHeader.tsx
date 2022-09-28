@@ -1,7 +1,8 @@
-import { createStyles, Header, Menu, Group, Center, Burger, Container, TextInput, Button } from '@mantine/core';
+import { createStyles, Group, Container, TextInput, Button, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
+import { openConfirmModal } from '@mantine/modals';
+import { v4 } from 'uuid';
+import { SerializedSet, SetItem } from '../api/sets';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -18,7 +19,8 @@ const useStyles = createStyles((theme) => ({
         paddingLeft: 10,
         marginLeft: '100px',
         borderBottom: `5px solid #1c7ed6`,
-        zIndex: 200000,
+        //zIndex: 200000,
+        zIndex: 2,
         backgroundColor: theme.colorScheme === `dark` ? `rgb(26, 27, 30)` : `#ffffff`,
     },
 
@@ -59,9 +61,30 @@ const useStyles = createStyles((theme) => ({
 }));
 
 
-export function SetCreatorHeader({ value, setValue, save }: { value: string, setValue: (v: string) => any, save: () => void }) {
-    const [opened, { toggle }] = useDisclosure(false);
+export function SetCreatorHeader({ value, setValue, save, setSet }: { value: string, setValue: (v: string) => any, save: () => void, setSet: (set: SerializedSet) => void }) {
     const { classes } = useStyles();
+
+    const openNewModal = () =>
+        //console.log(`opening`)
+        openConfirmModal({
+            title: 'Create new set',
+            centered: true,
+            children: (
+                <Text size="sm">
+                    Are you sure you want to create a new set? This will delete any unsaved work
+                </Text>
+            ),
+            labels: { confirm: 'New set', cancel: "No don't create a new set" },
+            confirmProps: { color: 'red' },
+            onCancel: () => console.log('Cancel'),
+            onConfirm: () => setSet({
+                name: `Your new set!`,
+                uuid: v4(),
+                times_studied: 0,
+                is_2_languages: false,
+                items: []
+            }),
+        });
 
     return (
         //{/*<Header height={56} mb={120} style={{ marginLeft: 100 }} >*/ }
@@ -72,11 +95,13 @@ export function SetCreatorHeader({ value, setValue, save }: { value: string, set
                     variant="unstyled"
                     value={value}
                     size="md"
-                    onChange={(event) => setValue(event.target.value)}
+                    onChange={(event) => { setValue(event.target.value) }}
                 />
                 <Group position='right' className={classes.saveButton} ><Button size='xs' onClick={save} >
                     Save
-                </Button></Group>
+                </Button><Button size='xs' onClick={openNewModal} color="red" >
+                        New
+                    </Button></Group>
             </div>
         </Container>
         //{/*</Header>*/ }

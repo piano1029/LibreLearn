@@ -106,7 +106,7 @@ export default function SetCreator() {
             }
             console.log(`saving set`)
             db.data.sets[setData.uuid] = setData
-        }} />
+        }} setSet={setSetData} />
 
         <div style={{ marginBottom: 80 - 40 }} key="setcreatortopdiv" >
             <ScrollArea style={{ height: `calc(100vh - ${80 + 56 + 10}px)` }} key="setcreatorscrollarea" >

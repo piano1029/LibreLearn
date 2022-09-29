@@ -10,6 +10,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
             position: 'relative',
             height: 280,
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            zIndex: 1,
 
             [`&:hover .${image}`]: {
                 transform: 'scale(1.03)',

@@ -18,6 +18,7 @@ import { Store } from 'tauri-plugin-store-api';
 import SetCreator from "./screens/SetCreator";
 import AllSets from "./screens/AllSets";
 import { ModalsProvider } from "@mantine/modals";
+import { v4 } from "uuid";
 const store = new Store('.settings.dat');
 
 function Wrapper({ children }: { children: any }) {
@@ -75,7 +76,7 @@ appWindow.theme().then((theme) => {
                     sets: {},
                     draft: {
                         name: `Demo`,
-                        uuid: `2475a7e4-2e5f-45a8-86ea-613df04a2cb5`,
+                        uuid: v4(),
                         times_studied: 0,
                         is_2_languages: false,
                         items: []

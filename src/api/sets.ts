@@ -16,6 +16,7 @@ export type SerializedSet = {
     uuid: string,
 
     name: string
+    description?: string
     creator?: string
     is_made_by_this_user?: boolean
     has_been_shared?: 'inwards' | 'outwards' | 'inwards_outwards'

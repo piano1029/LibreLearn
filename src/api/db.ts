@@ -5,7 +5,7 @@ import { SerializedSet, Set } from './sets'
 
 export type DBData = {
     sets: {
-        [key: string]: Set
+        [key: string]: SerializedSet
     },
     draft: SerializedSet
 }

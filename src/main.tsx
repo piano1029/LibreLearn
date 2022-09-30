@@ -17,6 +17,7 @@ import db from "./api/db";
 import { Store } from 'tauri-plugin-store-api';
 import SetCreator from "./screens/SetCreator";
 import AllSets from "./screens/AllSets";
+import Set from './screens/Set'
 import { ModalsProvider } from "@mantine/modals";
 import { v4 } from "uuid";
 const store = new Store('.settings.dat');
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     {
         path: "/all",
         element: <Wrapper><AllSets /></Wrapper>
+    },
+    {
+        path: "/set/:uuid",
+        element: <Wrapper><Set /></Wrapper>
     }
 ]);
 

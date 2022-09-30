@@ -1,6 +1,7 @@
 import { IconEye, IconShare } from '@tabler/icons';
 import { Card, Text, Group, Center, createStyles, Stack } from '@mantine/core';
 import { SerializedSet } from '../api/sets';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme, _params, getRef) => {
     const image = getRef('image');
@@ -71,6 +72,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 export function SetCard({ set }: { set: SerializedSet }) {
     const { classes, theme } = useStyles();
+    const navigate = useNavigate()
 
     return (
         <Card
@@ -78,6 +80,7 @@ export function SetCard({ set }: { set: SerializedSet }) {
             shadow="lg"
             className={classes.card}
             radius="md"
+            onClick={() => { navigate(`/set/${set.uuid}`) }}
         >
 
             <div className={classes.image} style={{ backgroundImage: `url("https://images.unsplash.com/photo-1651527567557-769ea053b0ab")` }} />

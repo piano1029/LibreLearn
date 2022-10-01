@@ -62,9 +62,7 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: src-tauri/target/release/bundle/dmg/libre-learn*.dmg
         asset_name: MacOS
-        tag: ${{ github.ref }}
-        overwrite: true
-        body: "This is my release text"
+        tag: latest
       
 #    - uses: tauri-apps/tauri-action@v0
 #      env:

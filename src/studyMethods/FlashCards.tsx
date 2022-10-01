@@ -74,6 +74,7 @@ const FlashCards: StudyMethod = {
         const { classes, cx, theme } = useStyles();
 
         let [counter, setCount] = useState(0)
+        let [round, setRound] = useState(1)
         let [gameData, setGameData] = useState<FlashCardsGameData>({
             items: set.items.map((item) => {
                 return {
@@ -84,7 +85,17 @@ const FlashCards: StudyMethod = {
             })
         })
 
-        if (gameData.items[counter] === undefined) {
+        let _itemsToLearn = gameData.items.filter((v) => {
+            return v.timesSuccess - v.timesFailure < 3
+        })
+
+        let [itemsToLearn, setItemsToLearn] = useState(_itemsToLearn)
+
+        if (itemsToLearn[counter] === undefined) {
+            if (_itemsToLearn.length > 0) {
+                setCount(0)
+                setItemsToLearn(_itemsToLearn)
+            }
             return <Grid>
                 <Grid.Col span={12}><h1 style={{ textAlign: 'center', width: '100%' }} >Results</h1></Grid.Col>
                 <Grid.Col span={12}><Table sx={{ minWidth: 700 }}>

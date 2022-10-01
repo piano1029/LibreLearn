@@ -89,6 +89,7 @@ const FlashCards: StudyMethod = {
                     items: copy
                 })
                 setCount(counter + 1)
+                console.log(`user got answer ${state ? `correct` : `false`}!`)
             }} item={gameData.items[counter].item} /> : null}
         </Group>
     }

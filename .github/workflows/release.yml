@@ -56,13 +56,13 @@ jobs:
     - name: upload MacOS assets
       if: matrix.platform == 'macos-latest'
       uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: src-tauri/target/release/bundle/dmg/libre-learn*.dmg
-          asset_name: MacOS
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "This is my release text"
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: src-tauri/target/release/bundle/dmg/libre-learn*.dmg
+        asset_name: MacOS
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "This is my release text"
       
 #    - uses: tauri-apps/tauri-action@v0
 #      env:

@@ -169,7 +169,7 @@ export default function Set() {
     return <Grid>
         <Grid.Col span={8}><Banner title={set.name} description={set.description} image="https://images.unsplash.com/photo-1651527567557-769ea053b0ab" /></Grid.Col>
         <Grid.Col span={4}><InfoAndActions set={set} /></Grid.Col>
-        <Grid.Col span={12}><Group position="apart">{StudyMethods.map((studyMethod) => {
+        <Grid.Col span={12}><Group >{StudyMethods.map((studyMethod) => {
             const Icon = studyMethod.icon
             return <Button key={studyMethod.name} leftIcon={<Icon />} onClick={() => {
                 setTrainerBoxOpen(false)

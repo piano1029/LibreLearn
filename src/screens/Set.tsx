@@ -44,7 +44,7 @@ const useStyles = createStyles((theme) => ({
     setTrainerBox: {
         position: `absolute`,
         left: 80,
-        right: 0,
+        right: 10,
         top: 0,
         bottom: '70px',
         display: 'flex',

@@ -128,7 +128,7 @@ const FlashCards: StudyMethod = {
             </Grid>
         }
 
-        return <Group style={{ width: '200px' }} onScroll={(e) => { e.preventDefault() }} >
+        return <Group onScroll={(e) => { e.preventDefault() }} >
             {gameData.items[counter] !== undefined ? <FlashCard setState={(state) => {
                 let copy = [...gameData.items]
                 let field: `timesSuccess` | `timesFailure` = state ? `timesSuccess` : `timesFailure`

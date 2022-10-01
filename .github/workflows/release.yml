@@ -53,14 +53,12 @@ jobs:
       run: npm ci
     - name: build 🚀
       run: npm run tauri build
-    - name: test
-      run: ls src-tauri/target/release/bundle/dmg
     - name: upload MacOS assets
       if: matrix.platform == 'macos-latest'
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: src-tauri/target/release/bundle/dmg/libre-learn*.dmg
+        file: src-tauri/target/release/bundle/dmg/libre-learn_0.0.0_x64.dmg
         asset_name: MacOS
         tag: latest
       

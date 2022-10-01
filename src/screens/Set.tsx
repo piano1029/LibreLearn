@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import db from "../api/db";
 
-import { createStyles, Card, Overlay, CardProps, Button, Text, Grid, Stack, Group, Divider } from '@mantine/core';
+import { createStyles, Card, Overlay, CardProps, Button, Text, Grid, Stack, Group, Divider, Affix, Transition } from '@mantine/core';
 import { SerializedSet } from "../api/sets";
 import { IconDownload, IconUpload, IconX } from "@tabler/icons";
 import { v4 } from "uuid";
 import { openConfirmModal } from "@mantine/modals";
+import { StudyMethods } from "../api/studyMethods";
+import { useState } from "react";
+import FlashCards from "../studyMethods/FlashCards";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -36,6 +39,33 @@ const useStyles = createStyles((theme) => ({
 
     actionButton: {
         marginLeft: theme.spacing.xs
+    },
+
+    setTrainerBox: {
+        position: `absolute`,
+        left: 80,
+        right: 0,
+        top: 0,
+        bottom: '70px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        pointerEvents: 'none',
+        zIndex: 5
+    },
+
+    setTrainer: {
+        transition: `transform 500ms ease`,
+        transform: `scale(0)`,
+        backgroundColor: theme.colorScheme === `dark` ? theme.colors.dark[7] : `#ffffff`,
+        width: '100%',
+        height: '100%',
+        zIndex: 6,
+        pointerEvents: `all`
+    },
+
+    setTrainerOpened: {
+        transform: `scale(1)`
     }
 }));
 
@@ -125,6 +155,10 @@ function InfoAndActions({ set }: { set: SerializedSet }) {
 
 export default function Set() {
     let { uuid } = useParams()
+    const { classes, cx, theme } = useStyles();
+
+    let [trainerBoxOpen, setTrainerBoxOpen] = useState(false)
+    let [TrainerProvider, setTrainerProvider] = useState<typeof FlashCards | null>(null)
 
     if (uuid == undefined || db.data == null || db.data.sets[uuid] == undefined) {
         return <h1>An error occurred</h1>
@@ -135,6 +169,32 @@ export default function Set() {
     return <Grid>
         <Grid.Col span={8}><Banner title={set.name} description={set.description} image="https://images.unsplash.com/photo-1651527567557-769ea053b0ab" /></Grid.Col>
         <Grid.Col span={4}><InfoAndActions set={set} /></Grid.Col>
+        <Grid.Col span={12}><Group position="apart">{StudyMethods.map((studyMethod) => {
+            const Icon = studyMethod.icon
+            return <Button key={studyMethod.name} leftIcon={<Icon />} onClick={() => {
+                setTrainerBoxOpen(false)
+                setTrainerProvider(studyMethod)
+                setTrainerBoxOpen(true)
+            }} >{studyMethod.name}</Button>
+        })}</Group></Grid.Col>
         {uuid}
+        <Button onClick={() => { setTrainerBoxOpen(!trainerBoxOpen) }} >test</Button>
+
+        <div className={classes.setTrainerBox} >
+            <div className={cx(classes.setTrainer, { [classes.setTrainerOpened]: trainerBoxOpen })} >
+                {(TrainerProvider === null) ? <h1>No trainer</h1> : <TrainerProvider.Render set={set} />}
+
+                <Affix position={{ bottom: 20 + 70, right: 20 }}>
+                    <Transition transition="slide-up" mounted={TrainerProvider !== null && trainerBoxOpen}>
+                        {(transitionStyles) => (
+                            <Button style={transitionStyles} variant="default" onClick={() => {
+                                setTrainerBoxOpen(false)
+                            }} >Close trainer</Button>
+                        )}
+                    </Transition>
+                </Affix>
+
+            </div>
+        </div>
     </Grid>
 }

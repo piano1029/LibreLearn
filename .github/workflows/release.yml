@@ -53,6 +53,8 @@ jobs:
       run: npm ci
     - name: build 🚀
       run: npm run tauri build
+    - name: test
+      run: ls src-tauri/target/release/bundle/dmg
     - name: upload MacOS assets
       if: matrix.platform == 'macos-latest'
       uses: svenstaro/upload-release-action@v2
